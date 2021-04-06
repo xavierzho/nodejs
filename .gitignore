@@ -1,0 +1,9 @@
+/spider/userData/
+/.idea/
+/.vscode/
+/node_modules/
+/img/
+*.jfif
+*.jpg
+*.png
+

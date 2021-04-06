@@ -1,0 +1,12 @@
+{
+  "name": "Node.js",
+  "version": "1.0.0",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "bson": "^4.2.3",
+    "chalk": "^4.1.0",
+    "mongodb": "^3.6.5",
+    "puppeteer": "^8.0.0",
+    "typescript": "^4.2.3"
+  }
+}
