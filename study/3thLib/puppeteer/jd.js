@@ -1,5 +1,5 @@
 const puppeteer = require("puppeteer");
-const {insertMany} = require("./mongo");
+const {insertMany} = require("../../db/mongodb/mongo");
 const dbName = "ECommerce";
 const colName = "jd";
 let products = []
@@ -30,7 +30,7 @@ async function parseItems(page) {
     const page = (await browser.pages())[0];
     await page.goto(`https://www.jd.com/`);
     // 选择搜索框输入内容
-    await (await page.$("#key")).type(keyword);
+    await page.type("#key",keyword);
     //点击搜索按钮
     await page.click(".button");
     // 等待下一页按钮加载，并滑动到下一页元素

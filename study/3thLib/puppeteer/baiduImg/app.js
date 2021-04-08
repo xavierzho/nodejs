@@ -1,7 +1,7 @@
 "use strict";
 const puppeteer = require("puppeteer");
-// const {path} = require("./default");
-// const {srcToImg} = require("./srcToImg");
+const {path} = require("./default");
+const {srcToImg} = require("./srcToImg");
 
 (async (keyword) => {
     const browser = await puppeteer.launch({
@@ -17,13 +17,13 @@ const puppeteer = require("puppeteer");
         ".img-layout>a>img",
         (elements) => {
             elements.map((ele) => {
-                ele.src
+                return ele.src
             })
         })
-    console.log(srcList)
-    // srcList.forEach(src => {
-    //     srcToImg(src, path);
-    // })
 
-    // await browser.close()
+    Array.from(srcList).forEach(src => {
+        srcToImg(src, path);
+    })
+
+    await browser.close()
 })('狗');

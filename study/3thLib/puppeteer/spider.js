@@ -8,7 +8,7 @@ const path = require("path");
 
     const browser = await puppeteer.launch({
         headless: false,
-        userDataDir: path.resolve(__dirname, "userData"),
+        // userDataDir: path.resolve(__dirname, "userData"),
     });
     const page = await browser.newPage();
 
