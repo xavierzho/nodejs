@@ -17,12 +17,14 @@ const request = async (url) => {
 
 
 }
-const sha256 = crypto.createHash("sha256")
-const client = new Redis(process.env.redisURI)
-client.spop("baidu:requests", (res) => {
-    if (res) {
-        request(res)
-        sha256.update(res)
-        client.sadd("baidu:dupefilter", sha256.digest())
-    }
-})
+setTimeout(()=>{
+    const sha256 = crypto.createHash("sha256")
+    const client = new Redis(process.env.redisURI)
+    client.spop("baidu:requests", (res) => {
+        if (res) {
+            request(res)
+            sha256.update(res)
+            client.sadd("baidu:dupefilter", sha256.digest())
+        }
+    })
+},10000)
