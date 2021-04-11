@@ -1,14 +1,16 @@
-class Person1{
+class Person1 {
     content = "Hi 帅哥"
     say() {
-        return this.content
+        return this.content;
     }
 }
 
 const goddess = new Person1()
-console.log(goddess.say());
+console.log(goddess.say())
 class Animal {
-    constructor (name, color) {
+    name: string // 声明属性类型
+    color: string
+    constructor (name: string, color: string) {
         this.name = name
         this.color = color
 
@@ -19,15 +21,17 @@ class Animal {
 }
 
 class Cat extends Animal {
-    constructor (name, color) {
-        super(name, color); // 先有super调用父类，才有子类属性
-        this.name = name;  // 实例成员
-        this.color = color;
+    call: Function
+    constructor (name: string, color: string) {
+        super(name, color) // 先有super调用父类，才有子类属性
+        this.name = name  // 实例成员
+        this.color = color
 
     }
     walk() {
         return `${this.name} cat walk!`
     }
+
 
 }
 Cat.prototype.call = function () {
@@ -36,5 +40,5 @@ Cat.prototype.call = function () {
 let cat = new Cat("jones", "write");
 console.log(cat.eat());
 console.log(cat.walk());
-cat.call()
+cat.walk()
 console.log(typeof Cat); //function，类就是构造函数
