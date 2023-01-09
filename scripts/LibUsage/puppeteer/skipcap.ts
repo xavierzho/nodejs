@@ -58,6 +58,8 @@ async function createPage(browser: Browser, url: string): Promise<Page> {
 
   await page.evaluateOnNewDocument(() => {
     // Pass chrome check
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     window.chrome = {
       runtime: {}
       // etc.
@@ -67,10 +69,11 @@ async function createPage(browser: Browser, url: string): Promise<Page> {
   await page.evaluateOnNewDocument(() => {
     //Pass notifications check
     const originalQuery = window.navigator.permissions.query
-    return (window.navigator.permissions.query = async (parameters) =>
-      parameters.name === 'notifications' as PermissionName
-        ? Promise.resolve({ state: Notification.permission })
-        :  originalQuery(parameters))
+    return async (parameters: PermissionDescriptor) => {
+      return parameters.name === ('notifications' as PermissionName)
+        ? await Promise.resolve({ state: Notification.permission })
+        : await originalQuery(parameters)
+    }
   })
 
   await page.evaluateOnNewDocument(() => {
@@ -92,8 +95,7 @@ async function createPage(browser: Browser, url: string): Promise<Page> {
   await page.goto(url, { waitUntil: 'networkidle2', timeout: 0 })
   return page
 }
-
-;(async (keyword) => {
+async function main() {
   const browser = await puppeteer.launch({
     headless: false,
     ignoreDefaultArgs: ['--enable-automation', '--password-store'],
@@ -102,14 +104,16 @@ async function createPage(browser: Browser, url: string): Promise<Page> {
   })
   const page = await createPage(browser, `https://www.taobao.com/`)
   await page.click('.site-nav-sign>a')
-  await page
-    .waitForSelector('#fm-login-id')(await page.$('#fm-login-id'))
-    .type('15913101814')(await page.$('#fm-login-password'))
-    .type('snq1997.')
+  await page.waitForSelector('#fm-login-id')
+  const loginId = await page.$('#fm-login-id')
+  const loginPwd = await page.$('#fm-login-password')
+  await loginId?.type('')
+  await loginPwd?.type('')
   await page.click('.fm-btn>button')
   await page.once('framenavigated', async () => {
     await page.waitForSelector('#logo', { timeout: 1000 })
     await page.click('#logo')
   })
   await page.goto('')
-})('华为手机')
+}
+main().then(console.log)

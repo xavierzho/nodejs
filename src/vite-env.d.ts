@@ -1,5 +1,10 @@
 /// <reference types="vite/client" />
 
-declare interface Window {
-  chrome: any
+declare global {
+  interface Window {
+    puppeteer?: any
+    chrome?: {
+      runtime: any
+    }
+  }
 }

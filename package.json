@@ -32,6 +32,7 @@
     "typescript": "*"
   },
   "devDependencies": {
+    "@types/crypto-js": "^4.1.1",
     "@types/fs-extra": "^11.0.0",
     "@types/node": "^18.11.18",
     "@types/react": "^18.0.26",
@@ -39,6 +40,7 @@
     "@typescript-eslint/eslint-plugin": "^5.48.0",
     "@typescript-eslint/parser": "^5.48.0",
     "@vitejs/plugin-react": "^3.0.0",
+    "crypto-js": "^4.1.1",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^8.6.0",
     "eslint-config-standard-with-typescript": "^26.0.0",
